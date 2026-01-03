@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  
+  /* background 和 foreground 也要改 */
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  /* 圆角变量 (方便全局调整风格) */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  
+  /* 动画扩展 (可选) */
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes accordion-down {
+    from { height: 0 }
+    to { height: var(--radix-accordion-content-height) }
+  }
+  @keyframes accordion-up {
+    from { height: var(--radix-accordion-content-height) }
+    to { height: 0 }
+  }
+}
+
+/* 3. CSS 变量定义 (这里是实际控制颜色的地方) */
+/* 推荐使用 HSL 或 OKLCH 格式，Shadcn 默认使用 HSL */
+:root {
+  /* 亮色模式 (Light Mode) */
+  --background: 0 0% 100%;       /* 白色背景 */
+  --foreground: 222.2 84% 4.9%;  /* 深灰文本 (不是纯黑，更有质感) */
+
+  --primary: 222.2 47.4% 11.2%;  /* 品牌主色 (深蓝) */
+  --primary-foreground: 210 40% 98%; /* 主色上面的文字颜色 */
+
+  --secondary: 210 40% 96.1%;    /* 次要背景 (浅灰) */
+  --secondary-foreground: 222.2 47.4% 11.2%;
+
+  --muted: 210 40% 96.1%;        /* 弱化背景 */
+  --muted-foreground: 215.4 16.3% 46.9%; /* 弱化文字 (灰色) */
+
+  --accent: 210 40% 96.1%;       /* 强调背景 (Hover时) */
+  --accent-foreground: 222.2 47.4% 11.2%;
+
+  --destructive: 0 84.2% 60.2%;  /* 红色警告 */
+  --destructive-foreground: 210 40% 98%;
+
+  --border: 214.3 31.8% 91.4%;   /* 边框色 */
+  --input: 214.3 31.8% 91.4%;    /* 输入框边框 */
+  --ring: 222.2 84% 4.9%;        /* 聚焦时的光圈色 */
+
+  --radius: 0.5rem;              /* 全局圆角大小: 8px */
+}
+
+/* 暗色模式 (Dark Mode) */
+.dark {
+  --background: 222.2 84% 4.9%;  /* 深黑背景 */
+  --foreground: 210 40% 98%;     /* 浅白文本 */
+
+  --primary: 210 40% 98%;        /* 暗色模式下主色通常反转为亮色 */
+  --primary-foreground: 222.2 47.4% 11.2%;
+
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 212.7 26.8% 83.9%;
+}
+
+/* 4. 基础样式重置与全局设置 */
+@layer base {
+  *, ::after, ::before {
+    @apply border-border; /* 让所有边框默认使用我们的边框变量 */
+  }
+
+  html {
+    /* 字体平滑处理 (让字体在 Mac 上更细更清晰) */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* 解决滚动条跳动问题 */
+    scrollbar-gutter: stable; 
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    /* 优化字体渲染特性 */
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  /* 隐藏滚动条但保留滚动功能 (可选，看需求) */
+  /* .no-scrollbar::-webkit-scrollbar { display: none; } */
+}
+
