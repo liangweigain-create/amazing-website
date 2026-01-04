@@ -1,32 +1,44 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import MainLayout from '@/components/layout/MainLayout';
-// 懒加载页面，优化首屏性能
 import LoginPage from '@/features/auth/pages/LoginPage';
-import DashboardPage from '@/pages/DashBoardPage';
+import HomePage from '@/pages/HomePage';
+import UserManagePage from '@/features/user/pages/UserManagePage';
+import UserDetailPage from '@/features/user/pages/UserDetailPage';
+import MarketingPage from '@/features/marketing/pages/MarketingPage';
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <MainLayout />, // 带有 Sidebar 和 Header 的主布局
+    element: <MainLayout />,
     children: [
       {
         index: true,
-        element: <Navigate to="/dashboard" replace />,
+        element: <Navigate to="/home" replace />,
       },
       {
-        path: 'dashboard',
-        element: <DashboardPage />,
+        path: 'home',
+        element: <HomePage />,
       },
-      // 未来可以加更多：
-      // { path: 'settings', element: <SettingsPage /> }
+      {
+        path: 'users',
+        element: <UserManagePage />,
+      },
+      {
+        path: 'users/:id',
+        element: <UserDetailPage />,
+      },
+      {
+        path: 'marketing',
+        element: <MarketingPage />,
+      },
     ],
   },
   {
     path: '/login',
-    element: <LoginPage />, // 没有任何布局的独立页面
+    element: <LoginPage />,
   },
   {
     path: '*',
-    element: <div>404 Not Found</div>,
+    element: <div className="flex items-center justify-center min-h-screen text-muted-foreground">404 Not Found</div>,
   },
 ]);

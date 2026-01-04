@@ -16,20 +16,50 @@
   --color-destructive: hsl(var(--destructive));
   --color-destructive-foreground: hsl(var(--destructive-foreground));
   
+  --color-success: hsl(var(--success));
+  --color-success-foreground: hsl(var(--success-foreground));
+  
+  --color-warning: hsl(var(--warning));
+  --color-warning-foreground: hsl(var(--warning-foreground));
+  
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
   
-  /* background 和 foreground 也要改 */
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
+  
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
 
-  /* 圆角变量 (方便全局调整风格) */
+  /* 圆角变量 */
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
   
+  /* 动画 */
+  --animate-fade-in: fade-in 0.2s ease-out;
+  --animate-fade-out: fade-out 0.2s ease-out;
+  --animate-slide-in: slide-in 0.3s ease-out;
+  --animate-scale-in: scale-in 0.2s ease-out;
+
+  @keyframes fade-in {
+    from { opacity: 0 }
+    to { opacity: 1 }
+  }
+  @keyframes fade-out {
+    from { opacity: 1 }
+    to { opacity: 0 }
+  }
+  @keyframes slide-in {
+    from { transform: translateY(-10px); opacity: 0 }
+    to { transform: translateY(0); opacity: 1 }
+  }
+  @keyframes scale-in {
+    from { transform: scale(0.95); opacity: 0 }
+    to { transform: scale(1); opacity: 1 }
+  }
   /* 动画扩展 (可选) */
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
@@ -44,81 +74,261 @@
   }
 }
 
-/* 3. CSS 变量定义 (这里是实际控制颜色的地方) */
-/* 推荐使用 HSL 或 OKLCH 格式，Shadcn 默认使用 HSL */
+/* 蓝白主色调 CSS 变量 */
 :root {
-  /* 亮色模式 (Light Mode) */
-  --background: 0 0% 100%;       /* 白色背景 */
-  --foreground: 222.2 84% 4.9%;  /* 深灰文本 (不是纯黑，更有质感) */
+  /* 背景与前景 */
+  --background: 210 40% 98%;      /* 淡蓝白背景 */
+  --foreground: 217 33% 17%;      /* 深蓝灰文本 */
 
-  --primary: 222.2 47.4% 11.2%;  /* 品牌主色 (深蓝) */
-  --primary-foreground: 210 40% 98%; /* 主色上面的文字颜色 */
+  /* 蓝色主色调 */
+  --primary: 217 91% 60%;         /* 明亮蓝色 #3B82F6 */
+  --primary-foreground: 0 0% 100%; /* 白色文字 */
 
-  --secondary: 210 40% 96.1%;    /* 次要背景 (浅灰) */
-  --secondary-foreground: 222.2 47.4% 11.2%;
+  /* 次要色 */
+  --secondary: 214 32% 91%;       /* 浅灰蓝 */
+  --secondary-foreground: 217 33% 17%;
 
-  --muted: 210 40% 96.1%;        /* 弱化背景 */
-  --muted-foreground: 215.4 16.3% 46.9%; /* 弱化文字 (灰色) */
+  /* 弱化色 */
+  --muted: 214 32% 91%;
+  --muted-foreground: 215 16% 47%;
 
-  --accent: 210 40% 96.1%;       /* 强调背景 (Hover时) */
-  --accent-foreground: 222.2 47.4% 11.2%;
+  /* 强调色 */
+  --accent: 217 91% 60%;
+  --accent-foreground: 0 0% 100%;
 
-  --destructive: 0 84.2% 60.2%;  /* 红色警告 */
-  --destructive-foreground: 210 40% 98%;
+  /* 状态色 */
+  --destructive: 0 84% 60%;       /* 红色 */
+  --destructive-foreground: 0 0% 100%;
+  
+  --success: 142 71% 45%;         /* 绿色 */
+  --success-foreground: 0 0% 100%;
+  
+  --warning: 38 92% 50%;          /* 橙色 */
+  --warning-foreground: 0 0% 100%;
 
-  --border: 214.3 31.8% 91.4%;   /* 边框色 */
-  --input: 214.3 31.8% 91.4%;    /* 输入框边框 */
-  --ring: 222.2 84% 4.9%;        /* 聚焦时的光圈色 */
+  /* 边框与输入 */
+  --border: 214 32% 91%;
+  --input: 214 32% 91%;
+  --ring: 217 91% 60%;
 
-  --radius: 0.5rem;              /* 全局圆角大小: 8px */
+  /* 卡片 */
+  --card: 0 0% 100%;              /* 纯白 */
+  --card-foreground: 217 33% 17%;
+
+  --radius: 0.5rem;
 }
 
-/* 暗色模式 (Dark Mode) */
+/* 暗色模式 */
 .dark {
-  --background: 222.2 84% 4.9%;  /* 深黑背景 */
-  --foreground: 210 40% 98%;     /* 浅白文本 */
+  --background: 222 47% 11%;      /* 深蓝背景 */
+  --foreground: 210 40% 98%;      /* 浅白文本 */
 
-  --primary: 210 40% 98%;        /* 暗色模式下主色通常反转为亮色 */
-  --primary-foreground: 222.2 47.4% 11.2%;
+  --primary: 217 91% 60%;
+  --primary-foreground: 0 0% 100%;
 
-  --secondary: 217.2 32.6% 17.5%;
+  --secondary: 217 33% 17%;
   --secondary-foreground: 210 40% 98%;
 
-  --muted: 217.2 32.6% 17.5%;
-  --muted-foreground: 215 20.2% 65.1%;
+  --muted: 217 33% 17%;
+  --muted-foreground: 215 20% 65%;
 
-  --accent: 217.2 32.6% 17.5%;
-  --accent-foreground: 210 40% 98%;
+  --accent: 217 91% 60%;
+  --accent-foreground: 0 0% 100%;
 
-  --destructive: 0 62.8% 30.6%;
+  --destructive: 0 63% 31%;
   --destructive-foreground: 210 40% 98%;
+  
+  --success: 142 71% 35%;
+  --success-foreground: 210 40% 98%;
+  
+  --warning: 38 92% 40%;
+  --warning-foreground: 210 40% 98%;
 
-  --border: 217.2 32.6% 17.5%;
-  --input: 217.2 32.6% 17.5%;
-  --ring: 212.7 26.8% 83.9%;
+  --border: 217 33% 17%;
+  --input: 217 33% 17%;
+  --ring: 217 91% 60%;
+
+  --card: 222 47% 11%;
+  --card-foreground: 210 40% 98%;
 }
 
-/* 4. 基础样式重置与全局设置 */
+/* 基础样式 */
 @layer base {
   *, ::after, ::before {
-    @apply border-border; /* 让所有边框默认使用我们的边框变量 */
+    @apply border-border;
   }
 
   html {
-    /* 字体平滑处理 (让字体在 Mac 上更细更清晰) */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /* 解决滚动条跳动问题 */
-    scrollbar-gutter: stable; 
+    scrollbar-gutter: stable;
   }
 
   body {
     @apply bg-background text-foreground antialiased;
-    /* 优化字体渲染特性 */
     font-feature-settings: "rlig" 1, "calt" 1;
   }
-  
-  /* 隐藏滚动条但保留滚动功能 (可选，看需求) */
-  /* .no-scrollbar::-webkit-scrollbar { display: none; } */
 }
 
+/* 可复用组件样式 */
+@layer components {
+  /* 按钮基础样式 - 使用选择器分组代替 @apply btn */
+  .btn, .btn-primary, .btn-secondary, .btn-destructive, .btn-outline, .btn-ghost, .btn-icon {
+    @apply inline-flex items-center justify-center gap-2
+           px-4 py-2
+           text-sm font-medium
+           rounded-lg
+           transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2
+           disabled:pointer-events-none disabled:opacity-50;
+  }
+  
+  .btn-primary {
+    @apply bg-primary text-primary-foreground
+           hover:bg-primary/90
+           active:scale-[0.98];
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground
+           hover:bg-secondary/80;
+  }
+  
+  .btn-destructive {
+    @apply bg-destructive text-destructive-foreground
+           hover:bg-destructive/90;
+  }
+  
+  .btn-outline {
+    @apply border border-border bg-transparent
+           hover:bg-accent hover:text-accent-foreground;
+  }
+  
+  .btn-ghost {
+    @apply bg-transparent
+           hover:bg-accent hover:text-accent-foreground;
+  }
+  
+  .btn-icon {
+    @apply p-2;
+  }
+
+  /* 输入框样式 */
+  .input {
+    @apply w-full px-3 py-2
+           text-sm
+           bg-background
+           border border-input rounded-lg
+           placeholder:text-muted-foreground
+           transition-colors duration-200
+           focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1
+           disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  /* 卡片样式 */
+  .card {
+    @apply bg-card text-card-foreground
+           rounded-xl border border-border
+           shadow-sm;
+  }
+  
+  .card-header {
+    @apply p-6 pb-0;
+  }
+  
+  .card-content {
+    @apply p-6;
+  }
+  
+  .card-footer {
+    @apply p-6 pt-0;
+  }
+
+  /* 表格样式 */
+  .table {
+    @apply w-full text-sm;
+  }
+  
+  .table thead {
+    @apply bg-muted/50;
+  }
+  
+  .table th {
+    @apply px-4 py-3 text-left font-semibold text-muted-foreground;
+  }
+  
+  .table td {
+    @apply px-4 py-3 border-t border-border;
+  }
+  
+  .table tbody tr {
+    @apply transition-colors hover:bg-muted/30;
+  }
+
+  /* 状态标签 - 使用选择器分组 */
+  .badge, .badge-primary, .badge-success, .badge-warning, .badge-destructive {
+    @apply inline-flex items-center
+           px-2.5 py-0.5
+           text-xs font-medium
+           rounded-full;
+  }
+  
+  .badge-primary {
+    @apply bg-primary/10 text-primary;
+  }
+  
+  .badge-success {
+    @apply bg-success/10 text-success;
+  }
+  
+  .badge-warning {
+    @apply bg-warning/10 text-warning;
+  }
+  
+  .badge-destructive {
+    @apply bg-destructive/10 text-destructive;
+  }
+
+  /* 弹窗遮罩 */
+  .modal-overlay {
+    @apply fixed inset-0 z-50
+           bg-black/50 backdrop-blur-sm
+           flex items-center justify-center
+           animate-fade-in;
+  }
+  
+  .modal-content {
+    @apply bg-card rounded-xl shadow-xl
+           w-full max-w-md mx-4
+           animate-scale-in;
+  }
+
+  /* 导航链接 - 使用选择器分组 */
+  .nav-link, .nav-link-active {
+    @apply flex items-center gap-3
+           px-3 py-2
+           text-sm font-medium text-muted-foreground
+           rounded-lg
+           transition-colors duration-200
+           hover:bg-accent hover:text-accent-foreground;
+  }
+  
+  .nav-link-active {
+    @apply bg-primary/10 text-primary;
+  }
+
+  /* 表单标签 */
+  .label {
+    @apply text-sm font-medium text-foreground;
+  }
+  
+  /* 错误提示 */
+  .error-message {
+    @apply text-sm text-destructive mt-1;
+  }
+  
+  /* 成功提示 */
+  .success-message {
+    @apply text-sm text-success mt-1;
+  }
+}
